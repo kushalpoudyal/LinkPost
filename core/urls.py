@@ -1,0 +1,60 @@
+# kawadiwala/urls.py (main project URLs)
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('core.urls')),
+]
+
+# core/urls.py (app URLs)
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # Authentication
+    path('', views.home, name='home'),
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    
+    # Dashboards
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('customer/', views.customer_dashboard, name='customer_dashboard'),
+    path('collector/', views.collector_dashboard, name='collector_dashboard'),
+    path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    
+    # Pickup Management
+    path('request-pickup/', views.request_pickup, name='request_pickup'),
+    path('pickup-history/', views.pickup_history, name='pickup_history'),
+    path('assign-pickup/<int:pickup_id>/', views.assign_pickup, name='assign_pickup'),
+    path('update-pickup/<int:pickup_id>/', views.update_pickup, name='update_pickup'),
+    path('cancel-pickup/<int:pickup_id>/', views.cancel_pickup, name='cancel_pickup'),
+    
+    # Admin management URLs
+    path('admin-manage/update-pickup/<int:pickup_id>/', views.admin_update_pickup_status, name='admin_update_pickup_status'),
+    path('admin-manage/approve-transaction/<int:transaction_id>/', views.admin_approve_transaction, name='admin_approve_transaction'),
+    path('admin-manage/bulk-update-pickups/', views.admin_bulk_update_pickups, name='admin_bulk_update_pickups'),
+    path('admin-manage/export-data/', views.export_data_pdf, name='export_data_pdf'),
+    path('admin-manage/edit-category/<int:category_id>/', views.edit_category, name='edit_category'),
+    path('admin-manage/delete-category/<int:category_id>/', views.delete_category, name='delete_category'),
+    
+    # User Management
+    path('delete-account/', views.delete_account, name='delete_account'),
+    path('profile/', views.user_profile, name='user_profile'),
+    path('download-report/', views.customer_report_pdf, name='customer_report_pdf'),
+    path('admin-manage/users/', views.manage_users, name='manage_users'),
+    path('admin-manage/create-admin/', views.create_admin_user, name='create_admin_user'),
+    path('admin-manage/toggle-user-status/<int:user_id>/', views.toggle_user_status, name='toggle_user_status'),
+    path('admin-manage/delete-user/<int:user_id>/', views.delete_user, name='delete_user'),
+    
+    # Static Pages
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
+    path('services/', views.services, name='services'),
+    path('pricing/', views.pricing, name='pricing'),
+    path('tracking/', views.tracking, name='tracking'),
+    path('blog/', views.blog_list, name='blog_list'),
+    path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
+    path('privacy/', views.privacy, name='privacy'),
+]

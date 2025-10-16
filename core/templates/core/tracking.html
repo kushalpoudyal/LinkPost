@@ -1,0 +1,143 @@
+{% extends 'core/base.html' %} {% block content %}
+
+<div class="hero-section bg-warning text-white text-center py-5 mb-5 rounded">
+  <div class="container">
+    <h1 class="display-5 fw-bold">
+      <i class="fas fa-location-dot me-2"></i>Track Your Parcel
+    </h1>
+    <p class="lead mb-0">
+      Enter your Link Post tracking number to view live status.
+    </p>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-lg-8 mx-auto">
+    <form
+      class="card shadow-sm border-0"
+      method="get"
+      action="{% url 'tracking' %}"
+    >
+      <div class="card-body p-4">
+        <label class="form-label fw-semibold small">Tracking Number</label>
+        <div class="input-group">
+          <input
+            type="text"
+            name="tn"
+            value="{{ query }}"
+            placeholder="e.g. LP123456789AU"
+            class="form-control form-control-lg"
+            required
+          />
+          <button class="btn btn-warning" type="submit">
+            <i class="fas fa-search me-1"></i>Search
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% if not_found %}
+<div class="row mb-4">
+  <div class="col-lg-8 mx-auto">
+    <div class="alert alert-danger shadow-sm mb-0">
+      <i class="fas fa-triangle-exclamation me-2"></i>No record found for
+      tracking number <strong>{{ query }}</strong>. Please verify and try again.
+    </div>
+  </div>
+</div>
+{% endif %} {% if result %}
+<div class="row mb-5">
+  <div class="col-lg-8 mx-auto">
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between mb-2"
+        >
+          <h5 class="mb-0 fw-bold">
+            <i class="fas fa-box me-2 text-warning"></i>{{ result.tracking_number }}
+          </h5>
+          {% with status=result.current_status %} {% if "Delivered" in status %}
+          <span class="badge bg-success">{{ status }}</span>
+          {% elif "Out for Delivery" in status %}
+          <span class="badge bg-primary">{{ status }}</span>
+          {% elif "Delayed" in status %}
+          <span class="badge bg-danger">{{ status }}</span>
+          {% elif "Label" in status %}
+          <span class="badge bg-secondary">{{ status }}</span>
+          {% elif "At Facility" in status %}
+          <span class="badge bg-info text-dark">{{ status }}</span>
+          {% else %}
+          <span class="badge bg-warning text-dark">{{ status }}</span>
+          {% endif %} {% endwith %}
+        </div>
+        <div class="row g-3 small">
+          <div class="col-sm-6">
+            <div class="text-muted">Origin</div>
+            <div class="fw-semibold">{{ result.origin }}</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="text-muted">Destination</div>
+            <div class="fw-semibold">{{ result.destination }}</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="text-muted">Service</div>
+            <div class="fw-semibold">{{ result.service }}</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="text-muted">Weight</div>
+            <div class="fw-semibold">{{ result.weight_kg }} kg</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="text-muted">ETA</div>
+            <div class="fw-semibold">{{ result.eta }}</div>
+          </div>
+          <div class="col-sm-12">
+            <div class="text-muted">Last Updated</div>
+            <div class="fw-semibold">{{ result.last_updated }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-warning text-dark fw-bold py-2">
+        Tracking History
+      </div>
+      <div class="card-body p-0">
+        <ul class="list-group list-group-flush">
+          {% for ev in result.events %}
+          <li class="list-group-item small d-flex flex-column flex-md-row">
+            <span class="text-muted me-md-3" style="min-width: 170px"
+              >{{ ev.0 }}</span
+            >
+            <span>{{ ev.1 }}</span>
+          </li>
+          {% empty %}
+          <li class="list-group-item small">No events recorded.</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="card-footer small text-muted">
+        Displaying mock data for demonstration purposes.
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body small text-muted">
+        <strong>Disclaimer:</strong> This page currently shows mock tracking
+        data. Live tracking will connect to carrier / internal scan events in
+        production.
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,338 @@
+{% extends 'core/base.html' %} {% block content %}
+
+<!-- Hero -->
+<div class="hero-section bg-warning text-white text-center py-5 mb-5 rounded">
+  <div class="container">
+    <h1 class="display-5 fw-bold">
+      <i class="fas fa-tags me-2"></i>Pricing & Rates
+    </h1>
+    <p class="lead mb-0">
+      Simple, transparent delivery pricing in AUD (GST included).
+    </p>
+  </div>
+</div>
+
+<!-- Tiered Pricing Overview -->
+<div class="row mb-5">
+  <div class="col-12 text-center mb-4">
+    <h2 class="h4 fw-bold text-warning">
+      Tiered Pricing (Weight x Distance x Speed)
+    </h2>
+    <p class="text-muted small mb-0">
+      Indicative ranges. Exact quote available via calculator below.
+    </p>
+  </div>
+  <div class="col-lg-12">
+    <div class="table-responsive shadow-sm">
+      <table class="table table-bordered table-sm align-middle mb-0">
+        <thead class="table-warning text-nowrap">
+          <tr>
+            <th>Speed / Band</th>
+            <th>Local (≤25 km)</th>
+            <th>Metro (25–80 km)</th>
+            <th>Regional (80–250 km)</th>
+            <th>Interstate (&gt;250 km)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="fw-semibold">Same-Day (0–2 kg)</td>
+            <td>$10 – $15</td>
+            <td>$16 – $22</td>
+            <td>$28 – $40</td>
+            <td>$55 – $70</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold">Same-Day (2–5 kg)</td>
+            <td>$14 – $20</td>
+            <td>$22 – $30</td>
+            <td>$38 – $55</td>
+            <td>$70 – $90</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold">Express (0–2 kg)</td>
+            <td>$18 – $25</td>
+            <td>$28 – $38</td>
+            <td>$55 – $75</td>
+            <td>$90 – $120</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold">Express (2–5 kg)</td>
+            <td>$22 – $30</td>
+            <td>$34 – $46</td>
+            <td>$65 – $90</td>
+            <td>$110 – $150</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold">Standard (0–5 kg)</td>
+            <td>$8 – $12</td>
+            <td>$14 – $20</td>
+            <td>$24 – $34</td>
+            <td>$40 – $60</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold">Eco (Consolidated 0–5 kg)</td>
+            <td>$7 – $10</td>
+            <td>$12 – $18</td>
+            <td>$22 – $30</td>
+            <td>$38 – $55</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold">Bulk (10–20 kg)</td>
+            <td>$25 – $40</td>
+            <td>$40 – $60</td>
+            <td>$70 – $110</td>
+            <td>$130 – $190</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="small text-muted mt-2">
+        All amounts in AUD. GST (10%) included. Surcharges may apply for
+        oversized (>20kg single piece) or remote zones.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Weight Surcharges -->
+<div class="row mb-5">
+  <div class="col-lg-6 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-header bg-warning text-dark fw-bold py-2">
+        Weight Add-ons (per kg above tier base)
+      </div>
+      <div class="card-body p-3">
+        <ul class="small m-0">
+          <li>0–2 kg: Base included</li>
+          <li>2–5 kg: +$1.50 / kg</li>
+          <li>5–10 kg: +$1.20 / kg</li>
+          <li>10–20 kg: +$1.00 / kg</li>
+          <li>20–30 kg: +$1.80 / kg (manual handling)</li>
+          <li>&gt;30 kg: Quote required (team lift / freight)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-header bg-warning text-dark fw-bold py-2">
+        Distance Base (per km by speed)
+      </div>
+      <div class="card-body p-3">
+        <ul class="small m-0">
+          <li>Eco: $0.55 / km</li>
+          <li>Standard: $0.65 / km</li>
+          <li>Same-Day: $0.85 / km</li>
+          <li>Express: $1.05 / km</li>
+          <li>Minimum charge: 10 km billable</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cost Calculator -->
+<div class="row mb-5" id="calculator">
+  <div class="col-12 text-center mb-4">
+    <h2 class="h4 fw-bold text-warning">Instant Cost Estimator</h2>
+    <p class="small text-muted mb-0">
+      Estimate only. Final price confirmed at booking.
+    </p>
+  </div>
+  <div class="col-lg-7 mx-auto">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form id="pricingForm" class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label small fw-semibold">Weight (kg)</label>
+            <input
+              type="number"
+              step="0.1"
+              min="0.1"
+              value="2"
+              class="form-control"
+              id="weightInput"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small fw-semibold">Distance (km)</label>
+            <input
+              type="number"
+              step="1"
+              min="1"
+              value="15"
+              class="form-control"
+              id="distanceInput"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small fw-semibold">Speed</label>
+            <select id="speedInput" class="form-select">
+              <option value="eco">Eco</option>
+              <option value="standard" selected>Standard</option>
+              <option value="same_day">Same-Day</option>
+              <option value="express">Express</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label class="form-label small fw-semibold"
+              >Insurance (optional)</label
+            >
+            <select id="insuranceInput" class="form-select">
+              <option value="0" selected>No Insurance ($0)</option>
+              <option value="5">Cover up to $500 (+$5)</option>
+              <option value="10">Cover up to $1,000 (+$10)</option>
+              <option value="18">Cover up to $2,000 (+$18)</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <button type="button" id="calcBtn" class="btn btn-warning w-100">
+              <i class="fas fa-calculator me-2"></i>Calculate
+            </button>
+          </div>
+        </form>
+        <hr />
+        <div id="estimateResult" class="small">
+          <div class="fw-bold mb-1">Estimate (AUD):</div>
+          <div class="d-flex flex-column gap-1">
+            <span id="baseLine">Base: -</span>
+            <span id="weightLine">Weight Adj: -</span>
+            <span id="insuranceLine">Insurance: -</span>
+            <span id="gstLine">GST (10%): -</span>
+            <strong id="totalLine" class="mt-1 fs-5">Total: -</strong>
+          </div>
+        </div>
+        <div class="mt-2 text-muted small">
+          Calculation rule: (Distance * speedRate + weightAdj) + insurance, then
+          + GST (included in total).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Transparent Fees -->
+<div class="row mb-5">
+  <div class="col-12 text-center mb-4">
+    <h2 class="h5 fw-bold text-warning">Transparent & Inclusive Pricing</h2>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <h6 class="fw-bold">
+          <i class="fas fa-receipt me-2 text-warning"></i>No Hidden Fees
+        </h6>
+        <p class="small mb-0">
+          All surcharges (fuel, toll alignment, GST) are already factored into
+          displayed estimates.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <h6 class="fw-bold">
+          <i class="fas fa-shield-check me-2 text-warning"></i>Insurance
+          Optional
+        </h6>
+        <p class="small mb-0">
+          Add cover only when you need it—no automatic markups on low‑value
+          parcels.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <h6 class="fw-bold">
+          <i class="fas fa-leaf me-2 text-warning"></i>Eco Savings
+        </h6>
+        <p class="small mb-0">
+          Eco (consolidated) option keeps costs low by batching compatible
+          routes.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="row mb-4">
+  <div class="col-lg-8 mx-auto">
+    <div class="card bg-warning border-0 shadow-sm">
+      <div class="card-body text-center py-5">
+        <h3 class="fw-bold mb-3">Ready to Book?</h3>
+        <p class="mb-4 text-dark">
+          Create a free account to schedule a pickup or request a bulk quote.
+        </p>
+        <a href="{% url 'register' %}" class="btn btn-dark btn-lg me-2"
+          ><i class="fas fa-user-plus me-2"></i>Get Started</a
+        >
+        <a href="{% url 'contact' %}" class="btn btn-outline-dark btn-lg"
+          ><i class="fas fa-envelope-open me-2"></i>Contact Sales</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block extra_js %}
+<script>
+  (function () {
+    const speedRates = {
+      eco: 0.55,
+      standard: 0.65,
+      same_day: 0.85,
+      express: 1.05,
+    };
+    const weightAdjTiers = [
+      { max: 2, adj: 0 },
+      { max: 5, adj: 1.5 },
+      { max: 10, adj: 1.2 },
+      { max: 20, adj: 1.0 },
+      { max: 30, adj: 1.8 },
+      { max: Infinity, adj: 3.5 },
+    ];
+    function calcWeightAdj(kg) {
+      let tier = weightAdjTiers.find((t) => kg <= t.max);
+      let baseIncluded = 2; // first 2kg in base
+      if (kg <= baseIncluded) return 0;
+      return (kg - baseIncluded) * tier.adj;
+    }
+    function format(a) {
+      return "$" + a.toFixed(2);
+    }
+    document.getElementById("calcBtn").addEventListener("click", () => {
+      const w = parseFloat(document.getElementById("weightInput").value || 0);
+      const d = parseFloat(document.getElementById("distanceInput").value || 0);
+      const speed = document.getElementById("speedInput").value;
+      const insurance = parseFloat(
+        document.getElementById("insuranceInput").value || 0
+      );
+      if (w <= 0 || d <= 0) {
+        alert("Enter valid weight & distance");
+        return;
+      }
+      const billableDistance = Math.max(d, 10); // minimum billing distance
+      const base = billableDistance * speedRates[speed];
+      const weightAdj = calcWeightAdj(w);
+      const subtotal = base + weightAdj + insurance;
+      const gst = subtotal * 0.1;
+      const total = subtotal + gst;
+      document.getElementById("baseLine").textContent = "Base: " + format(base);
+      document.getElementById("weightLine").textContent =
+        "Weight Adj: " + format(weightAdj);
+      document.getElementById("insuranceLine").textContent =
+        "Insurance: " + format(insurance);
+      document.getElementById("gstLine").textContent =
+        "GST (10%): " + format(gst);
+      document.getElementById("totalLine").textContent =
+        "Total (Incl. GST): " + format(total);
+    });
+  })();
+</script>
+{% endblock %} {% endblock %}

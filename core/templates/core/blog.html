@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="hero-section bg-warning text-white text-center py-5 mb-5 rounded">
+  <div class="container">
+    {% if post %}
+      <h1 class="display-6 fw-bold">{{ post.title }}</h1>
+      <p class="mb-0 small">Category: {{ post.category }} • {{ post.date }}</p>
+    {% else %}
+      <h1 class="display-5 fw-bold"><i class="fas fa-newspaper me-2"></i>Logistics Blog</h1>
+      <p class="lead mb-0">Shipping guides, updates and customer success stories.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% if not post %}
+  <div class="row mb-4">
+    <div class="col-lg-10 mx-auto">
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+        <a href="{% url 'blog_list' %}" class="btn btn-sm {% if not active_category %}btn-warning text-dark{% else %}btn-outline-warning{% endif %}">All</a>
+        {% for c in categories %}
+          <a href="?category={{ c }}" class="btn btn-sm {% if active_category == c %}btn-warning text-dark{% else %}btn-outline-warning{% endif %}">{{ c }}</a>
+        {% endfor %}
+      </div>
+      {% if posts %}
+        <div class="row">
+          {% for p in posts %}
+            <div class="col-md-6 mb-4">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex flex-column">
+                  <span class="badge bg-dark mb-2">{{ p.category }}</span>
+                  <h5 class="fw-bold mb-2">
+                    <a class="text-decoration-none text-dark" href="{% url 'blog_detail' p.slug %}">{{ p.title }}</a>
+                  </h5>
+                  <p class="small text-muted flex-grow-1">{{ p.excerpt }}</p>
+                  <div class="d-flex justify-content-between align-items-center small text-muted">
+                    <span>{{ p.date }}</span>
+                    <a href="{% url 'blog_detail' p.slug %}" class="text-warning fw-semibold">Read &raquo;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info mb-0">No posts in this category yet.</div>
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  <div class="row mb-5">
+    <div class="col-lg-9 mx-auto">
+      <article class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <div class="mb-3">
+            <a href="{% url 'blog_list' %}" class="small text-decoration-none">&larr; Back to all posts</a>
+          </div>
+          <div class="mb-2">
+            <span class="badge bg-dark">{{ post.category }}</span>
+          </div>
+          <h2 class="h4 fw-bold mb-3">{{ post.title }}</h2>
+          <div class="small text-muted mb-4">Published {{ post.date }}</div>
+          <div class="blog-content">
+            {{ post.content|safe }}
+          </div>
+        </div>
+      </article>
+      <div class="card border-0 shadow-sm">
+        <div class="card-body small text-muted">
+          <strong>Keywords:</strong>
+          {% for k in post.keywords %}
+            <span class="badge bg-warning text-dark me-1 mb-1">{{ k }}</span>
+          {% endfor %}
+          <div class="mt-2">This article is part of Link Post’s knowledge base helping senders ship smarter.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="row">
+  <div class="col-lg-9 mx-auto">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body small text-muted">
+        <strong>Note:</strong> Posts are mock data placeholders. Replace with database driven content in production.
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

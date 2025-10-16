@@ -1,0 +1,101 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="hero-section bg-warning text-white text-center py-5 mb-5 rounded">
+  <div class="container">
+    <h1 class="display-5 fw-bold"><i class="fas fa-headset me-2"></i>Contact Us</h1>
+    <p class="lead mb-0">We are here to help with deliveries, tracking and account questions.</p>
+  </div>
+</div>
+
+<div class="row g-5 mb-5">
+  <!-- Contact Form -->
+  <div class="col-lg-7">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4 p-md-5">
+        <h2 class="h5 fw-bold text-warning mb-3">Send a Message</h2>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Full Name *</label>
+            <input type="text" name="name" class="form-control" required maxlength="120" value="{{ request.POST.name }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Email *</label>
+            <input type="email" name="email" class="form-control" required maxlength="180" value="{{ request.POST.email }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Tracking Code (optional)</label>
+            <input type="text" name="tracking_code" class="form-control" maxlength="40" placeholder="e.g. LP123456789AU" value="{{ request.POST.tracking_code }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Message *</label>
+            <textarea name="message" rows="6" class="form-control" required maxlength="2000">{{ request.POST.message }}</textarea>
+            <div class="form-text small">Include any delivery context, issues or feedback.</div>
+          </div>
+          <button type="submit" class="btn btn-warning w-100">
+            <i class="fas fa-paper-plane me-2"></i>Send Message
+          </button>
+          <div class="small text-muted mt-2">
+            By submitting you consent to us using these details solely to respond to your inquiry. No marketing added automatically.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Details -->
+  <div class="col-lg-5">
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body p-4">
+        <h2 class="h6 fw-bold text-warning mb-3">Contact Details</h2>
+        <ul class="list-unstyled small mb-4">
+          <li class="mb-2"><i class="fas fa-phone me-2 text-warning"></i>+61 1 2345 6789</li>
+            <li class="mb-2"><i class="fas fa-envelope me-2 text-warning"></i>support@linkpost.com</li>
+          <li class="mb-2"><i class="fas fa-user-shield me-2 text-warning"></i>privacy@linkpost.com</li>
+          <li class="mb-2"><i class="fas fa-location-dot me-2 text-warning"></i>Level 5, 123 Logistics Way, Sydney NSW 2000</li>
+        </ul>
+        <h2 class="h6 fw-bold text-warning mb-2">Support Hours</h2>
+        <p class="small mb-3">
+          Mon–Fri: 7:00 – 20:00<br>
+          Sat: 8:00 – 16:00<br>
+          Sun & Public Holidays: Priority incidents only
+        </p>
+        <div class="alert alert-warning py-2 small mb-0">
+          <i class="fas fa-triangle-exclamation me-1"></i>
+          For urgent delivery interruptions include your tracking code.
+        </div>
+      </div>
+    </div>
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-warning text-dark fw-bold py-2">
+        Office & Pickup Hub
+      </div>
+      <div class="card-body p-0">
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9556513155049!3d-37.8173277420146!"
+            style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Link Post Office Map"></iframe>
+        </div>
+      </div>
+      <div class="card-footer small text-muted">
+        Map location for demonstration purposes only.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Secondary Info -->
+<div class="row mb-4">
+  <div class="col-lg-10 mx-auto">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body small text-muted">
+        <strong>Data Notice:</strong> Submitted form data is processed to respond to your inquiry and retained only as long as necessary
+        for support follow‑up. No third‑party marketing distribution.
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,291 @@
+{% extends 'core/base.html' %} {% block content %}
+<!-- Hero Section -->
+<div class="hero-section bg-warning text-white text-center py-5 mb-5 rounded">
+  <div class="container">
+    <h1 class="display-4 fw-bold">
+      <i class="fas fa-shipping-fast me-3"></i>Link Post
+    </h1>
+    <p class="lead fs-3">Seamless Nationwide Parcel Delivery</p>
+    <p class="fs-5">
+      Connecting Australia with fast, reliable door-to-door service
+    </p>
+
+    {% if not user.is_authenticated %}
+    <div class="mt-4">
+      <a href="{% url 'register' %}" class="btn btn-light btn-lg me-3">
+        <i class="fas fa-user-plus me-2"></i>Get Started
+      </a>
+      <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg">
+        <i class="fas fa-sign-in-alt me-2"></i>Login
+      </a>
+    </div>
+    {% else %}
+    <div class="mt-4">
+      <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg">
+        <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="row mb-5">
+  <div class="col-12 text-center mb-4">
+    <h2 class="display-6 fw-bold text-success">Why Choose Link Post?</h2>
+    <p class="lead">Experience the future of parcel delivery</p>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card feature-card h-100 shadow-sm">
+      <div class="card-body text-center p-4">
+        <div
+          class="feature-icon bg-warning text-white rounded-circle mx-auto mb-3"
+        >
+          <i class="fas fa-calendar-check fa-2x"></i>
+        </div>
+        <h5 class="card-title fw-bold">Easy Pickup Scheduling</h5>
+        <p class="card-text">
+          Book a courier pickup at your convenience—no more waiting or
+          uncertainty.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card feature-card h-100 shadow-sm">
+      <div class="card-body text-center p-4">
+        <div
+          class="feature-icon bg-warning text-dark rounded-circle mx-auto mb-3"
+        >
+          <i class="fas fa-coins fa-2x"></i>
+        </div>
+        <h5 class="card-title fw-bold">Transparent Pricing</h5>
+        <p class="card-text">
+          Clear, upfront pricing based on weight and destination—know the cost
+          before you send.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card feature-card h-100 shadow-sm">
+      <div class="card-body text-center p-4">
+        <div
+          class="feature-icon bg-info text-white rounded-circle mx-auto mb-3"
+        >
+          <i class="fas fa-mobile-alt fa-2x"></i>
+        </div>
+        <h5 class="card-title fw-bold">Digital Payments</h5>
+        <p class="card-text">
+          Secure digital payments with instant confirmation—send parcels
+          cash-free.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <!-- Replace environmental impact with tracking -->
+    <div class="card feature-card h-100 shadow-sm">
+      <div class="card-body text-center p-4">
+        <div
+          class="feature-icon bg-warning text-white rounded-circle mx-auto mb-3"
+        >
+          <i class="fas fa-map-marker-alt fa-2x"></i>
+        </div>
+        <h5 class="card-title fw-bold">Real-Time Tracking</h5>
+        <p class="card-text">
+          Monitor every parcel from pickup to delivery with live status updates.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card feature-card h-100 shadow-sm">
+      <div class="card-body text-center p-4">
+        <div
+          class="feature-icon bg-primary text-white rounded-circle mx-auto mb-3"
+        >
+          <i class="fas fa-shield-alt fa-2x"></i>
+        </div>
+        <h5 class="card-title fw-bold">Verified Couriers</h5>
+        <p class="card-text">
+          All couriers are verified professionals ensuring safety and
+          reliability.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card feature-card h-100 shadow-sm">
+      <div class="card-body text-center p-4">
+        <div
+          class="feature-icon bg-danger text-white rounded-circle mx-auto mb-3"
+        >
+          <i class="fas fa-headset fa-2x"></i>
+        </div>
+        <h5 class="card-title fw-bold">24/7 Support</h5>
+        <p class="card-text">
+          Round-the-clock support for booking, tracking, and delivery
+          assistance.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Statistics Section -->
+<div class="row text-center mb-5">
+  <div class="col-12 mb-4">
+    <h2 class="display-6 fw-bold text-success">Our Impact</h2>
+    <p class="lead">
+      Growing network powering faster deliveries across Australia
+    </p>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card stat-card bg-primary text-white h-100">
+      <div class="card-body">
+        <i class="fas fa-users fa-3x mb-3"></i>
+        <h2 class="display-5 fw-bold">{{ total_users|default:0 }}</h2>
+        <p class="fs-5">Registered Users</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card stat-card bg-info text-white h-100">
+      <div class="card-body">
+        <i class="fas fa-truck fa-3x mb-3"></i>
+        <h2 class="display-5 fw-bold">{{ total_pickups|default:0 }}</h2>
+        <p class="fs-5">Total Deliveries</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card stat-card bg-warning text-white h-100">
+      <div class="card-body">
+        <i class="fas fa-check-circle fa-3x mb-3"></i>
+        <h2 class="display-5 fw-bold">{{ completed_pickups|default:0 }}</h2>
+        <p class="fs-5">Delivered</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card stat-card bg-warning text-dark h-100">
+      <div class="card-body">
+        <i class="fas fa-recycle fa-3x mb-3"></i>
+        <h2 class="display-5 fw-bold">
+          {{ waste_categories.count|default:0 }}
+        </h2>
+        <p class="fs-5">Package Types</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="row mb-5">
+  <div class="col-12 text-center mb-4">
+    <h2 class="display-6 fw-bold text-success">How It Works</h2>
+    <p class="lead">Simple steps to send your parcel</p>
+  </div>
+
+  <div class="col-lg-3 col-md-6 text-center mb-4">
+    <div class="step-item">
+      <div
+        class="step-number bg-warning text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+        style="width: 60px; height: 60px"
+      >
+        <span class="fw-bold fs-4">1</span>
+      </div>
+      <div class="step-icon text-success mb-3">
+        <i class="fas fa-user-plus fa-3x"></i>
+      </div>
+      <h5 class="fw-bold">Register Account</h5>
+      <p class="text-muted">
+        Create a Customer or Courier account with valid details
+      </p>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 text-center mb-4">
+    <div class="step-item">
+      <div
+        class="step-number bg-warning text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+        style="width: 60px; height: 60px"
+      >
+        <span class="fw-bold fs-4">2</span>
+      </div>
+      <div class="step-icon text-success mb-3">
+        <i class="fas fa-calendar-plus fa-3x"></i>
+      </div>
+      <h5 class="fw-bold">Schedule Pickup</h5>
+      <p class="text-muted">Book a pickup with preferred date and time</p>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 text-center mb-4">
+    <div class="step-item">
+      <div
+        class="step-number bg-warning text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+        style="width: 60px; height: 60px"
+      >
+        <span class="fw-bold fs-4">3</span>
+      </div>
+      <div class="step-icon text-success mb-3">
+        <i class="fas fa-truck fa-3x"></i>
+      </div>
+      <h5 class="fw-bold">Courier Pickup</h5>
+      <p class="text-muted">Courier arrives, verifies, and scans your parcel</p>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 text-center mb-4">
+    <div class="step-item">
+      <div
+        class="step-number bg-warning text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+        style="width: 60px; height: 60px"
+      >
+        <span class="fw-bold fs-4">4</span>
+      </div>
+      <div class="step-icon text-success mb-3">
+        <i class="fas fa-money-bill-wave fa-3x"></i>
+      </div>
+      <h5 class="fw-bold">Track & Deliver</h5>
+      <p class="text-muted">Follow live tracking until successful delivery</p>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action -->
+{% if not user.is_authenticated %}
+<div class="row">
+  <div class="col-lg-8 mx-auto text-center">
+    <div class="card cta-card bg-gradient-success text-white shadow-lg">
+      <div class="card-body p-5">
+        <h2 class="display-6 fw-bold mb-3">Ready to Ship Smarter?</h2>
+        <p class="lead mb-4">
+          Join thousands across Australia using Link Post for fast, secure
+          parcel delivery.
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+          <a href="{% url 'register' %}" class="btn btn-light btn-lg me-md-2">
+            <i class="fas fa-rocket me-2"></i>Start Sending Now
+          </a>
+          <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-sign-in-alt me-2"></i>Already a Member?
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %} {% endblock %}
