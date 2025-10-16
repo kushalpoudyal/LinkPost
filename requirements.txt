@@ -1,4 +1,4 @@
 Django==5.0.6
 gunicorn
-mathfilters
+django-mathfilters
 psycopg2-binary
